@@ -12,10 +12,12 @@
 
 # Package Files #
 *.jar
+!bjad-utils*.jar
 *.war
 *.nar
 *.ear
 *.zip
+!Release/*.zip
 *.tar.gz
 *.rar
 
@@ -32,7 +34,3 @@ RemoteSystemsTempFiles/
 
 .project
 .classpath
-
-# Allow the built .jar files
-!**/bjad_utils-1.0.0-SNAPSHOT.jar
-!**/site/

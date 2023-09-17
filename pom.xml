@@ -3,7 +3,7 @@
 
 	<groupId>bjad</groupId>
 	<artifactId>bjad-utils</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 
 	<name>BJAD Web Component</name>
 	<description>Library containing a component allowing for java applications to call and download data from Rest APIs, Web Services, or even web pages.</description>
