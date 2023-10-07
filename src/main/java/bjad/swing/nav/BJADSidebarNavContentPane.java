@@ -121,7 +121,7 @@ public class BJADSidebarNavContentPane extends JPanel implements ActionListener
       sidebarPanel.add(moduleListingPanel, BorderLayout.CENTER);
       
       // Set the size of the sidebar panel so its padded.
-      sidebarPanel.setPreferredSize(new Dimension(150, 800));
+      sidebarPanel.setPreferredSize(new Dimension(200, 800));
       
       sidebarPanel.setBorder(new LineBorder(Color.darkGray));
       

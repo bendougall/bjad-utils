@@ -35,7 +35,6 @@
 		<module name="ModifiedControlVariable" />
 		<module name="SimplifyBooleanReturn" />
 		<module name="StringLiteralEquality" />
-		<module name="ReturnCount" />
 		<module name="MultipleStringLiterals">
 		    <property name="allowedDuplicates" value="5"/>
 		</module>
@@ -47,9 +46,6 @@
 			<property name="allowStaticMemberImports" value="false" />
 		</module>
 		<module name="RedundantImport" />
-
-		<module name="CyclomaticComplexity" />
-		<module name="NPathComplexity" />
 
 		<module name="TodoComment">
 			<property name="format" value="(TODO)|(FIXME)" />

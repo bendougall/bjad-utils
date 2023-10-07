@@ -3,6 +3,7 @@ package bjad.swing.testapp;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
@@ -15,6 +16,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -23,8 +26,11 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.CaretEvent;
@@ -37,6 +43,11 @@ import bjad.swing.DateTimeTextField;
 import bjad.swing.NumericTextField;
 import bjad.swing.TextField;
 import bjad.swing.WrappedLabel;
+import bjad.swing.listing.AbstractIItemTableModel;
+import bjad.swing.listing.EnhancedListModel;
+import bjad.swing.listing.IListingItemEditor;
+import bjad.swing.listing.ItemListingEditorPanelHelper;
+import bjad.swing.listing.ItemTableEditorPanelHelper;
 import bjad.swing.nav.AbstractBJADNavPanel;
 import bjad.swing.nav.BJADModuleEntry;
 import bjad.swing.nav.BJADNavModule;
@@ -107,6 +118,18 @@ public class BJADTestSidebarApp extends JFrame
       entry.setOrdinial(0);
       module.getEntries().add(entry);
       entry.setNavPanel(new DropdownDemoPanel());
+      
+      entry = new BJADModuleEntry();
+      entry.setDisplayName("MultiItem Editor Demo");
+      entry.setOrdinial(0);
+      module.getEntries().add(entry);
+      entry.setNavPanel(new MultiItemEditorPanel());
+      
+      entry = new BJADModuleEntry();
+      entry.setDisplayName("MultiItem Table Editor Demo");
+      entry.setOrdinial(0);
+      module.getEntries().add(entry);
+      entry.setNavPanel(new MultiItemTableEditorPanel());
       modules.add(module);
       
       setContentPane(new BJADSidebarNavContentPane(modules, SidebarSectionBehaviour.ALL_SHOWN_AND_USER_CAN_COLLAPSE));
@@ -734,4 +757,505 @@ class DropdownDemoPanel extends AbstractBJADNavPanel implements ItemListener, Ca
       
       resultField.setValue(result.stripTrailingZeros());
    }
+}
+
+class MultiItemEditorPanel extends AbstractBJADNavPanel implements IListingItemEditor<PersonModel>
+{
+   private static final long serialVersionUID = -4831598939589994296L;
+   
+   private TextField firstNameField = new TextField();
+   private TextField lastNameField = new TextField();
+   
+   private JButton saveButton = new JButton("Save");
+   private JButton newButton = new JButton("New");
+   private JButton deleteButton = new JButton("Delete");
+
+   private EnhancedListModel<PersonModel> listModel = new EnhancedListModel<PersonModel>();
+   private JList<PersonModel> personList = new JList<PersonModel>(listModel);
+   
+   private ItemListingEditorPanelHelper<PersonModel> listingHelper;
+   
+   private String currentID = null;
+   
+   public MultiItemEditorPanel()
+   {
+      super();
+      setLayout(new GridLayout(1, 2, 5, 5));
+      
+      this.add(createEditorPanel());
+      this.add(createListingPanel());
+      
+      listingHelper = new ItemListingEditorPanelHelper<PersonModel>(personList, newButton, deleteButton, this);
+      
+      saveButton.addActionListener(new ActionListener()
+      {         
+         @Override
+         public void actionPerformed(ActionEvent e)
+         {
+            listingHelper.addOrUpdateItem(retrieveItemFromEditor());
+         }
+      });
+   }
+   @Override
+   public String getPanelTitle()
+   {      
+      return "Multi-Item Editor";
+   }
+
+   @Override
+   public JComponent getComponentForDefaultFocus()
+   {      
+      return firstNameField;
+   }
+
+   @Override
+   public void onPanelDisplay()
+   {
+      
+   }
+
+   @Override
+   public boolean canPanelClose()
+   {
+      return true;
+   }
+
+   @Override
+   public void onPanelClosed()
+   {
+      
+   }
+   
+   private JPanel createEditorPanel()
+   {
+      JPanel editorPane = new JPanel(true);
+      editorPane.setLayout(new BorderLayout());
+      
+      JPanel content = new JPanel(true);
+      content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
+      JPanel pane = new JPanel(new BorderLayout(5,5));
+      JLabel lbl = new JLabel("First Name:");
+      lbl.setPreferredSize(new Dimension(150, 35));
+      pane.add(lbl, BorderLayout.WEST);
+      pane.add(firstNameField, BorderLayout.CENTER);
+      content.add(pane);
+      
+      pane = new JPanel(new BorderLayout(5,5));
+      lbl = new JLabel("Last Name");
+      lbl.setPreferredSize(new Dimension(150, 35));
+      pane.add(lbl, BorderLayout.WEST);
+      pane.add(lastNameField, BorderLayout.CENTER);
+      content.add(pane);
+      
+      pane = new JPanel(new BorderLayout(5,5));
+      saveButton.setPreferredSize(new Dimension(100, 25));
+      pane.add(new JLabel(""), BorderLayout.CENTER);
+      pane.add(saveButton, BorderLayout.EAST);
+      content.add(pane);
+      
+      editorPane.add(content, BorderLayout.NORTH);
+      editorPane.add(new JLabel(""), BorderLayout.CENTER);
+      
+      return editorPane;
+   }
+   
+   private JPanel createListingPanel()
+   {
+      JPanel listPanel = new JPanel(new BorderLayout());
+      
+      JPanel content = new JPanel(true);
+      content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
+      
+      JScrollPane sp = new JScrollPane(personList);
+      sp.setPreferredSize(new Dimension(150, 300));
+      content.add(sp);
+      
+      JPanel pane = new JPanel(new BorderLayout(5,5));
+      
+      pane.add(newButton, BorderLayout.WEST);
+      pane.add(deleteButton, BorderLayout.EAST);
+      content.add(pane);
+      
+      listPanel.add(content, BorderLayout.NORTH);
+      listPanel.add(new JLabel(""), BorderLayout.CENTER);
+      
+      return listPanel;
+   }
+   @Override
+   public void newItemStarted(boolean viaLastItemDeleted)
+   {
+      currentID = null;
+      firstNameField.setText("");
+      lastNameField.setText("");
+      
+      firstNameField.requestFocusInWindow();
+   }
+   @Override
+   public void setItemInEditor(PersonModel item)
+   {
+      currentID = item.getId();
+      firstNameField.setText(item.getFirstName());
+      lastNameField.setText(item.getLastName());
+   }
+   
+   @Override
+   public PersonModel retrieveItemFromEditor()
+   {
+      PersonModel person = new PersonModel();
+      person.setFirstName(firstNameField.getText());
+      person.setLastName(lastNameField.getText());
+      
+      if (currentID != null)
+      {
+         person.setId(currentID);
+      }
+      
+      return person;
+   }
+   @Override
+   public boolean isItemFromEditorSameAs(PersonModel itemToCompareAgainst)
+   {
+      return retrieveItemFromEditor().equals(itemToCompareAgainst);
+   }
+   
+   @Override
+   public boolean isNewAllowed(PersonModel currentSelection)
+   {
+      return true;
+   }
+   @Override
+   public boolean isDeleteAllowed(PersonModel itemToDelete)
+   {
+      return true;
+   }
+   @Override
+   public boolean isSelectionAllowToChange(PersonModel currentSelection)
+   {
+      return true;
+   }
+}
+
+class MultiItemTableEditorPanel extends AbstractBJADNavPanel implements IListingItemEditor<PersonModel>
+{
+   private static final long serialVersionUID = -4831598939589994296L;
+   
+   private TextField firstNameField = new TextField();
+   private TextField lastNameField = new TextField();
+   
+   private JButton saveButton = new JButton("Save");
+   private JButton newButton = new JButton("New");
+   private JButton deleteButton = new JButton("Delete");
+
+   private PersonTableModel tableModel = new PersonTableModel();
+   private JTable table; 
+   
+   private ItemTableEditorPanelHelper<PersonModel> listingHelper;
+   
+   private String currentID = null;
+   
+   public MultiItemTableEditorPanel()
+   {
+      super();
+      setLayout(new GridLayout(1, 2, 5, 5));
+      
+      this.add(createEditorPanel());
+      this.add(createListingPanel());
+      
+      listingHelper = new ItemTableEditorPanelHelper<PersonModel>(table, tableModel, newButton, deleteButton, this);
+      
+      saveButton.addActionListener(new ActionListener()
+      {         
+         @Override
+         public void actionPerformed(ActionEvent e)
+         {
+            listingHelper.addOrUpdateItem(retrieveItemFromEditor());
+         }
+      });
+   }
+   @Override
+   public String getPanelTitle()
+   {      
+      return "Multi-Item Table Editor";
+   }
+
+   @Override
+   public JComponent getComponentForDefaultFocus()
+   {      
+      return firstNameField;
+   }
+
+   @Override
+   public void onPanelDisplay()
+   {
+      
+   }
+
+   @Override
+   public boolean canPanelClose()
+   {
+      return true;
+   }
+
+   @Override
+   public void onPanelClosed()
+   {
+      
+   }
+   
+   private JPanel createEditorPanel()
+   {
+      JPanel editorPane = new JPanel(true);
+      editorPane.setLayout(new BorderLayout());
+      
+      JPanel content = new JPanel(true);
+      content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
+      JPanel pane = new JPanel(new BorderLayout(5,5));
+      JLabel lbl = new JLabel("First Name:");
+      lbl.setPreferredSize(new Dimension(150, 35));
+      pane.add(lbl, BorderLayout.WEST);
+      pane.add(firstNameField, BorderLayout.CENTER);
+      content.add(pane);
+      
+      pane = new JPanel(new BorderLayout(5,5));
+      lbl = new JLabel("Last Name");
+      lbl.setPreferredSize(new Dimension(150, 35));
+      pane.add(lbl, BorderLayout.WEST);
+      pane.add(lastNameField, BorderLayout.CENTER);
+      content.add(pane);
+      
+      pane = new JPanel(new BorderLayout(5,5));
+      saveButton.setPreferredSize(new Dimension(100, 25));
+      pane.add(new JLabel(""), BorderLayout.CENTER);
+      pane.add(saveButton, BorderLayout.EAST);
+      content.add(pane);
+      
+      editorPane.add(content, BorderLayout.NORTH);
+      editorPane.add(new JLabel(""), BorderLayout.CENTER);
+      
+      return editorPane;
+   }
+   
+   private JPanel createListingPanel()
+   {
+      table = new JTable(tableModel);
+      
+      JPanel listPanel = new JPanel(new BorderLayout());
+      
+      JPanel content = new JPanel(true);
+      content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
+      
+      JScrollPane sp = new JScrollPane(table);
+      sp.setPreferredSize(new Dimension(150, 300));
+      content.add(sp);
+      
+      JPanel pane = new JPanel(new BorderLayout(5,5));
+      
+      pane.add(newButton, BorderLayout.WEST);
+      pane.add(deleteButton, BorderLayout.EAST);
+      content.add(pane);
+      
+      listPanel.add(content, BorderLayout.NORTH);
+      listPanel.add(new JLabel(""), BorderLayout.CENTER);
+      
+      return listPanel;
+   }
+   @Override
+   public void newItemStarted(boolean viaLastItemDeleted)
+   {
+      currentID = null;
+      firstNameField.setText("");
+      lastNameField.setText("");
+      
+      firstNameField.requestFocusInWindow();
+   }
+   @Override
+   public void setItemInEditor(PersonModel item)
+   {
+      currentID = item.getId();
+      firstNameField.setText(item.getFirstName());
+      lastNameField.setText(item.getLastName());
+   }
+   
+   @Override
+   public PersonModel retrieveItemFromEditor()
+   {
+      PersonModel person = new PersonModel();
+      person.setFirstName(firstNameField.getText());
+      person.setLastName(lastNameField.getText());
+      
+      if (currentID != null)
+      {
+         person.setId(currentID);
+      }
+      
+      return person;
+   }
+   @Override
+   public boolean isItemFromEditorSameAs(PersonModel itemToCompareAgainst)
+   {
+      return retrieveItemFromEditor().equals(itemToCompareAgainst);
+   }
+   
+   @Override
+   public boolean isNewAllowed(PersonModel currentSelection)
+   {
+      return true;
+   }
+   @Override
+   public boolean isDeleteAllowed(PersonModel itemToDelete)
+   {
+      return true;
+   }
+   @Override
+   public boolean isSelectionAllowToChange(PersonModel currentSelection)
+   {
+      return true;
+   }
+}
+
+class PersonModel 
+{
+   private String id = UUID.randomUUID().toString();
+   private String firstName;
+   private String lastName;
+   /**
+    * Returns the value of the PersonModel instance's 
+    * id property.
+    *
+    * @return 
+    *   The value of id
+    */
+   public String getId()
+   {
+      return this.id;
+   }
+   /**
+    * Sets the value of the PersonModel instance's 
+    * id property.
+    *
+    * @param id 
+    *   The value to set within the instance's 
+    *   id property
+    */
+   public void setId(String id)
+   {
+      this.id = id;
+   }
+   /**
+    * Returns the value of the PersonModel instance's 
+    * firstName property.
+    *
+    * @return 
+    *   The value of firstName
+    */
+   public String getFirstName()
+   {
+      return this.firstName;
+   }
+   /**
+    * Sets the value of the PersonModel instance's 
+    * firstName property.
+    *
+    * @param firstName 
+    *   The value to set within the instance's 
+    *   firstName property
+    */
+   public void setFirstName(String firstName)
+   {
+      this.firstName = firstName;
+   }
+   /**
+    * Returns the value of the PersonModel instance's 
+    * lastName property.
+    *
+    * @return 
+    *   The value of lastName
+    */
+   public String getLastName()
+   {
+      return this.lastName;
+   }
+   /**
+    * Sets the value of the PersonModel instance's 
+    * lastName property.
+    *
+    * @param lastName 
+    *   The value to set within the instance's 
+    *   lastName property
+    */
+   public void setLastName(String lastName)
+   {
+      this.lastName = lastName;
+   }
+   
+   @Override
+   public int hashCode()
+   {
+      return Objects.hash(firstName, id, lastName);
+   }
+   @Override
+   public boolean equals(Object obj)
+   {
+      if (this == obj)
+      {
+         return true;
+      }
+      if (obj == null)
+      {
+         return false;
+      }
+      if (getClass() != obj.getClass())
+      {
+         return false;
+      }
+      PersonModel other = (PersonModel) obj;
+      return Objects.equals(this.firstName, other.firstName) && Objects.equals(this.id, other.id)
+            && Objects.equals(this.lastName, other.lastName);
+   }
+   @Override
+   public String toString()
+   {
+      return this.lastName + ", " + this.firstName;
+   }
+   
+}
+
+class PersonTableModel extends AbstractIItemTableModel<PersonModel>
+{
+   private static final long serialVersionUID = 4294566941602378959L;
+   private static final String[] COLUMNS = new String[] { "First Name", "Last Name" };
+   
+   @Override
+   public String getColumnName(int column)
+   {
+      return COLUMNS[column];
+   }
+
+   @Override
+   public boolean isCellEditable(int rowIndex, int columnIndex)
+   {
+      return false;
+   }
+
+   @Override
+   public int getColumnCount()
+   {
+      return COLUMNS.length;
+   }
+
+   @Override
+   public Object getValueAt(int rowIndex, int columnIndex)
+   {
+      PersonModel model = getItemAt(rowIndex);
+      if (model != null)
+      {
+         switch (columnIndex)
+         {
+         case 0: return model.getFirstName();
+         case 1: return model.getLastName();
+         }
+      }
+      return "";
+   }
+   
 }

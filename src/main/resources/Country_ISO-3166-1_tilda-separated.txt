@@ -1,0 +1,193 @@
+Afghanistan~~AF~~AFG~~4~~Afghanistan
+Albania~~AL~~ALB~~8~~Albanie
+Algeria~~DZ~~DZA~~12~~Algérie
+Andorra~~AD~~AND~~20~~Andorre
+Angola~~AO~~AGO~~24~~Angola
+Antigua and Barbuda~~AG~~ATG~~28~~Antigua-et-Barbuda
+Argentina~~AR~~ARG~~32~~Argentine
+Armenia~~AM~~ARM~~51~~Arménie
+Australia~~AU~~AUS~~36~~Australie
+Austria~~AT~~AUT~~40~~Autriche
+Azerbaijan~~AZ~~AZE~~31~~Azerbaïdjan
+Bahamas~~BS~~BHS~~44~~Bahamas
+Bahrain~~BH~~BHR~~48~~Bahreïn
+Bangladesh~~BD~~BGD~~50~~Bangladesh
+Barbados~~BB~~BRB~~52~~Barbade
+Belarus~~BY~~BLR~~112~~Biélorussie
+Belgium~~BE~~BEL~~56~~Belgique
+Belize~~BZ~~BLZ~~84~~Belize
+Benin~~BJ~~BEN~~204~~Bénin
+Bhutan~~BT~~BTN~~64~~Bhoutan
+Bolivia (Plurinational State of)~~BO~~BOL~~68~~Bolivie
+Bosnia and Herzegovina~~BA~~BIH~~70~~Bosnie-Herzégovine
+Botswana~~BW~~BWA~~72~~Botswana
+Brazil~~BR~~BRA~~76~~Brésil
+Brunei Darussalam~~BN~~BRN~~96~~Brunei
+Bulgaria~~BG~~BGR~~100~~Bulgarie
+Burkina Faso~~BF~~BFA~~854~~Burkina Faso
+Burundi~~BI~~BDI~~108~~Burundi
+Cambodia~~KH~~KHM~~116~~Cambodge
+Cameroon~~CM~~CMR~~120~~Cameroun
+Canada~~CA~~CAN~~124~~Canada
+Cabo Verde~~CV~~CPV~~132~~Cap-Vert
+Central African Republic~~CF~~CAF~~140~~République centrafricaine
+Chad~~TD~~TCD~~148~~Tchad
+Chile~~CL~~CHL~~152~~Chili
+China~~CN~~CHN~~156~~Chine
+Colombia~~CO~~COL~~170~~Colombie
+Comoros~~KM~~COM~~174~~Comores
+Congo~~CG~~COG~~178~~République du Congo
+Congo, Democratic Republic of the~~CD~~COD~~180~~République démocratique du Congo
+Costa Rica~~CR~~CRI~~188~~Costa Rica
+Côte d'Ivoire~~CI~~CIV~~384~~Côte d'Ivoire
+Croatia~~HR~~HRV~~191~~Croatie
+Cuba~~CU~~CUB~~192~~Cuba
+Cyprus~~CY~~CYP~~196~~Chypre
+Czechia~~CZ~~CZE~~203~~Tchéquie
+Denmark~~DK~~DNK~~208~~Danemark
+Djibouti~~DJ~~DJI~~262~~Djibouti
+Dominica~~DM~~DMA~~212~~Dominique
+Dominican Republic~~DO~~DOM~~214~~République dominicaine
+Ecuador~~EC~~ECU~~218~~Équateur
+Egypt~~EG~~EGY~~818~~Égypte
+El Salvador~~SV~~SLV~~222~~Salvador
+Equatorial Guinea~~GQ~~GNQ~~226~~Guinée équatoriale
+Eritrea~~ER~~ERI~~232~~Érythrée
+Estonia~~EE~~EST~~233~~Estonie
+Ethiopia~~ET~~ETH~~231~~Éthiopie
+Fiji~~FJ~~FJI~~242~~Fidji
+Finland~~FI~~FIN~~246~~Finlande
+France~~FR~~FRA~~250~~France
+Gabon~~GA~~GAB~~266~~Gabon
+Gambia~~GM~~GMB~~270~~Gambie
+Georgia~~GE~~GEO~~268~~Géorgie
+Germany~~DE~~DEU~~276~~Allemagne
+Ghana~~GH~~GHA~~288~~Ghana
+Greece~~GR~~GRC~~300~~Grèce
+Grenada~~GD~~GRD~~308~~Grenade
+Guatemala~~GT~~GTM~~320~~Guatemala
+Guinea~~GN~~GIN~~324~~Guinée
+Guinea-Bissau~~GW~~GNB~~624~~Guinée-Bissau
+Guyana~~GY~~GUY~~328~~Guyana
+Haiti~~HT~~HTI~~332~~Haïti
+Honduras~~HN~~HND~~340~~Honduras
+Hungary~~HU~~HUN~~348~~Hongrie
+Iceland~~IS~~ISL~~352~~Islande
+India~~IN~~IND~~356~~Inde
+Indonesia~~ID~~IDN~~360~~Indonésie
+Iran (Islamic Republic of)~~IR~~IRN~~364~~Iran
+Iraq~~IQ~~IRQ~~368~~Irak
+Ireland~~IE~~IRL~~372~~Irlande
+Israel~~IL~~ISR~~376~~Israël
+Italy~~IT~~ITA~~380~~Italie
+Jamaica~~JM~~JAM~~388~~Jamaïque
+Japan~~JP~~JPN~~392~~Japon
+Jordan~~JO~~JOR~~400~~Jordanie
+Kazakhstan~~KZ~~KAZ~~398~~Kazakhstan
+Kenya~~KE~~KEN~~404~~Kenya
+Kiribati~~KI~~KIR~~296~~Kiribati
+Korea (Democratic People's Republic of)~~KP~~PRK~~408~~Corée du Nord
+Korea, Republic of~~KR~~KOR~~410~~Corée du Sud
+Kuwait~~KW~~KWT~~414~~Koweït
+Kyrgyzstan~~KG~~KGZ~~417~~Kirghizistan
+Lao People's Democratic Republic~~LA~~LAO~~418~~Laos
+Latvia~~LV~~LVA~~428~~Lettonie
+Lebanon~~LB~~LBN~~422~~Liban
+Lesotho~~LS~~LSO~~426~~Lesotho
+Liberia~~LR~~LBR~~430~~Liberia
+Libya~~LY~~LBY~~434~~Libye
+Liechtenstein~~LI~~LIE~~438~~Liechtenstein
+Lithuania~~LT~~LTU~~440~~Lituanie
+Luxembourg~~LU~~LUX~~442~~Luxembourg
+North Macedonia~~MK~~MKD~~807~~Macédoine du Nord
+Madagascar~~MG~~MDG~~450~~Madagascar
+Malawi~~MW~~MWI~~454~~Malawi
+Malaysia~~MY~~MYS~~458~~Malaisie
+Maldives~~MV~~MDV~~462~~Maldives
+Mali~~ML~~MLI~~466~~Mali
+Malta~~MT~~MLT~~470~~Malte
+Marshall Islands~~MH~~MHL~~584~~Îles Marshall
+Mauritania~~MR~~MRT~~478~~Mauritanie
+Mauritius~~MU~~MUS~~480~~Maurice
+Mexico~~MX~~MEX~~484~~Mexique
+Micronesia (Federated States of)~~FM~~FSM~~583~~États fédérés de Micronésie
+Morocco~~MA~~MAR~~504~~Maroc
+Moldova, Republic of~~MD~~MDA~~498~~Moldavie
+Monaco~~MC~~MCO~~492~~Monaco
+Mongolia~~MN~~MNG~~496~~Mongolie
+Montenegro~~ME~~MNE~~499~~Monténégro
+Mozambique~~MZ~~MOZ~~508~~Mozambique
+Myanmar~~MM~~MMR~~104~~Birmanie
+Namibia~~NA~~NAM~~516~~Namibie
+Nauru~~NR~~NRU~~520~~Nauru
+Nepal~~NP~~NPL~~524~~Népal
+Netherlands~~NL~~NLD~~528~~Pays-Bas
+New Zealand~~NZ~~NZL~~554~~Nouvelle-Zélande
+Nicaragua~~NI~~NIC~~558~~Nicaragua
+Niger~~NE~~NER~~562~~Niger
+Nigeria~~NG~~NGA~~566~~Nigeria
+Norway~~NO~~NOR~~578~~Norvège
+Oman~~OM~~OMN~~512~~Oman
+Pakistan~~PK~~PAK~~586~~Pakistan
+Palau~~PW~~PLW~~585~~Palaos
+Panama~~PA~~PAN~~591~~Panama
+Papua New Guinea~~PG~~PNG~~598~~Papouasie-Nouvelle-Guinée
+Paraguay~~PY~~PRY~~600~~Paraguay
+Peru~~PE~~PER~~604~~Pérou
+Philippines~~PH~~PHL~~608~~Philippines
+Poland~~PL~~POL~~616~~Pologne
+Portugal~~PT~~PRT~~620~~Portugal
+Qatar~~QA~~QAT~~634~~Qatar
+Romania~~RO~~ROU~~642~~Roumanie
+Russian Federation~~RU~~RUS~~643~~Russie
+Rwanda~~RW~~RWA~~646~~Rwanda
+Saint Kitts and Nevis~~KN~~KNA~~659~~Saint-Christophe-et-Niévès
+Saint Lucia~~LC~~LCA~~662~~Sainte-Lucie
+Saint Vincent and the Grenadines~~VC~~VCT~~670~~Saint-Vincent-et-les-Grenadines
+Samoa~~WS~~WSM~~882~~Samoa
+San Marino~~SM~~SMR~~674~~Saint-Marin
+Sao Tome and Principe~~ST~~STP~~678~~Sao Tomé-et-Principe
+Saudi Arabia~~SA~~SAU~~682~~Arabie saoudite
+Senegal~~SN~~SEN~~686~~Sénégal
+Serbia~~RS~~SRB~~688~~Serbie
+Seychelles~~SC~~SYC~~690~~Seychelles
+Sierra Leone~~SL~~SLE~~694~~Sierra Leone
+Singapore~~SG~~SGP~~702~~Singapour
+Slovakia~~SK~~SVK~~703~~Slovaquie
+Slovenia~~SI~~SVN~~705~~Slovénie
+Solomon Islands~~SB~~SLB~~90~~Îles Salomon
+Somalia~~SO~~SOM~~706~~Somalie
+South Africa~~ZA~~ZAF~~710~~Afrique du Sud
+South Sudan~~SS~~SSD~~728~~Soudan du Sud
+Spain~~ES~~ESP~~724~~Espagne
+Sri Lanka~~LK~~LKA~~144~~Sri Lanka
+Sudan~~SD~~SDN~~729~~Soudan
+Suriname~~SR~~SUR~~740~~Suriname
+Eswatini~~SZ~~SWZ~~748~~Eswatini
+Sweden~~SE~~SWE~~752~~Suède
+Switzerland~~CH~~CHE~~756~~Suisse
+Syrian Arab Republic~~SY~~SYR~~760~~Syrie
+Tajikistan~~TJ~~TJK~~762~~Tadjikistan
+Tanzania, United Republic of~~TZ~~TZA~~834~~Tanzanie
+Thailand~~TH~~THA~~764~~Thaïlande
+Timor-Leste~~TL~~TLS~~626~~Timor oriental
+Togo~~TG~~TGO~~768~~Togo
+Tonga~~TO~~TON~~776~~Tonga
+Trinidad and Tobago~~TT~~TTO~~780~~Trinité-et-Tobago
+Tunisia~~TN~~TUN~~788~~Tunisie
+Türkiye~~TR~~TUR~~792~~Turquie
+Turkmenistan~~TM~~TKM~~795~~Turkménistan
+Tuvalu~~TV~~TUV~~798~~Tuvalu
+Uganda~~UG~~UGA~~800~~Ouganda
+Ukraine~~UA~~UKR~~804~~Ukraine
+United Arab Emirates~~AE~~ARE~~784~~Émirats arabes unis
+United Kingdom of Great Britain and Northern Ireland~~GB~~GBR~~826~~Royaume-Uni
+United States of America~~US~~USA~~840~~États-Unis
+Uruguay~~UY~~URY~~858~~Uruguay
+Uzbekistan~~UZ~~UZB~~860~~Ouzbékistan
+Vanuatu~~VU~~VUT~~548~~Vanuatu
+Venezuela (Bolivarian Republic of)~~VE~~VEN~~862~~Venezuela
+Viet Nam~~VN~~VNM~~704~~Viêt Nam
+Yemen~~YE~~YEM~~887~~Yémen
+Zambia~~ZM~~ZMB~~894~~Zambie
+Zimbabwe~~ZW~~ZWE~~716~~Zimbabwe

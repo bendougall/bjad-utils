@@ -241,5 +241,4 @@ public class CountryBean
       return Objects.equals(this.alpha2Code, other.alpha2Code) && Objects.equals(this.alpha3Code, other.alpha3Code)
             && this.numericCode == other.numericCode;
    }
-   
 }

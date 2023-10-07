@@ -1,16 +1,16 @@
 package bjad.swing;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
-import java.util.function.Consumer;
 
 import javax.swing.ComboBoxModel;
+
 import bjad.swing.beans.CountryBean;
 import bjad.swing.beans.ICountryDisplay;
+import bjad.swing.listing.CountryComboBoxModel;
 
 /**
  * Dropdown used to display countries to the user. 
@@ -21,15 +21,22 @@ import bjad.swing.beans.ICountryDisplay;
 public class CountryDropdown extends BJADComboBox<CountryBean>
 {
    private static final long serialVersionUID = -6227001906185492195L;
-   protected ICountryDisplay displayFormatter = ICountryDisplay.createEnglishDisplaySafeImpl();
+   
+   /**
+    * The combobox model used to store the items that will be displayed
+    * within the dropdown, as well as ensuring the display format set within
+    * the model is applied to all elements in the combobox when they are 
+    * added, or when the format is updated against the dropdown or the 
+    * model itself.
+    */
+   protected CountryComboBoxModel countryModel;
    
    /**
     * Default constructor, creating an empty dropdown.
     */
    public CountryDropdown()
    {
-      super();
-      setEditable(true);
+      this(new CountryComboBoxModel(ICountryDisplay.createEnglishDisplaySafeImpl()));
    }
 
    /**
@@ -37,9 +44,10 @@ public class CountryDropdown extends BJADComboBox<CountryBean>
     * @param aModel
     *    The model the dropdown will use to show items.
     */
-   public CountryDropdown(ComboBoxModel<CountryBean> aModel)
+   public CountryDropdown(CountryComboBoxModel aModel)
    {
       super(aModel);
+      this.countryModel = aModel;
       setEditable(true);
    }
 
@@ -50,8 +58,8 @@ public class CountryDropdown extends BJADComboBox<CountryBean>
     */
    public CountryDropdown(CountryBean[] countries)
    {
-      super(countries);
-      setEditable(true);
+      this();
+      this.countryModel.add(countries);
    }
 
    /**
@@ -61,18 +69,7 @@ public class CountryDropdown extends BJADComboBox<CountryBean>
    public CountryDropdown(Collection<CountryBean> countries)
    {
       this();
-      if (countries != null)
-      {
-         Iterator<CountryBean> iter = countries.iterator();
-         iter.forEachRemaining(new Consumer<CountryBean>()
-         {
-            @Override
-            public void accept(CountryBean t)
-            {
-               addItem(t);               
-            }
-         });
-      }
+      this.countryModel.add(countries);
    }
 
    /**
@@ -131,7 +128,7 @@ public class CountryDropdown extends BJADComboBox<CountryBean>
     * bjad.swing.CountryDropdown.findCountryByText(String))
     * 
     * @see 
-    *    #findCountryByText(String)
+    *    #findCountryIndexByText(String)
     * @param text
     *    The text to find in the country beans in the dropdown. 
     *    Selection will be set to null if the text cannot be
@@ -139,7 +136,7 @@ public class CountryDropdown extends BJADComboBox<CountryBean>
     */
    public void setSelectedCountryByText(String text)
    {
-      super.setSelectedIndex(findCountryByText(text));
+      super.setSelectedIndex(findCountryIndexByText(text));
    }
    
    /**
@@ -151,21 +148,79 @@ public class CountryDropdown extends BJADComboBox<CountryBean>
     */
    public void setDisplayFormatter(ICountryDisplay formatter)
    {
-      if (formatter != null)
+      this.countryModel.setDisplayInterface(formatter);
+   }
+      
+   /**
+    * Sets the model for the dropdown as long as its a CountryComboBoxModel
+    * as we need to use the custom model to ensure formatting of the beans
+    * is maintained. 
+    * 
+    * @param aModel
+    *    The model to apply to the dropdown, cannot be null and must be  
+    *    an instance of CountryComboBoxModel.
+    * @throws IllegalArgumentException
+    *    Thrown if the model is null, or if its not an instance of a CountryComboBoxModel
+    */
+   @Override
+   public void setModel(ComboBoxModel<CountryBean> aModel) throws IllegalArgumentException
+   {
+      if (aModel == null)
       {
-         this.displayFormatter = formatter;
-         int selectedIndex = getSelectedIndex();
-         setSelectedIndex(-1);
-         
-         for (int index = 0; index != getItemCount(); ++index)
-         {
-            getItemAt(index).setDisplayFormatter(formatter);
-         }
-         repaint();
-         setSelectedIndex(selectedIndex);
+         throw new IllegalArgumentException("The model cannot be null");
+      }
+      if (!(aModel instanceof CountryComboBoxModel))
+      {
+         throw new IllegalArgumentException("The model for the CountryDropdown must be a CountryComboBoxModel to ensure formatting.");
+      }
+      else
+      {
+         super.setModel(aModel);
+         this.countryModel = (CountryComboBoxModel)aModel;         
       }
    }
    
+   /**
+    * Gets the comboboxmodel for the dropdown, but developer 
+    * should be using the direct getCountryModel() function for 
+    * this. 
+    * 
+    * @deprecated
+    *    Should be using getCountryModel()
+    * @return
+    *    The combobox model used by the dropdown.
+    */
+   @Deprecated
+   public ComboBoxModel<CountryBean> getModel()
+   {
+      return countryModel;
+   }
+
+   /**
+    * Returns the value of the CountryDropdown instance's 
+    * countryModel property.
+    *
+    * @return 
+    *   The value of countryModel
+    */
+   public CountryComboBoxModel getCountryModel()
+   {
+      return this.countryModel;
+   }
+
+   /**
+    * Sets the value of the CountryDropdown instance's 
+    * countryModel property.
+    *
+    * @param countryModel 
+    *   The value to set within the instance's 
+    *   countryModel property
+    */
+   public void setCountryModel(CountryComboBoxModel countryModel)
+   {
+      this.setModel(countryModel);
+   }
+
    /**
     * Find the index for the country that matches the text
     * passed by comparing the fields in the following order:
@@ -187,7 +242,7 @@ public class CountryDropdown extends BJADComboBox<CountryBean>
     *    description for search order), or -1 if the text 
     *    could not be matched.
     */
-   public int findCountryByText(String text)
+   public int findCountryIndexByText(String text)
    {
       int retVal = -1;
       if (text != null && !text.trim().isEmpty())
@@ -276,12 +331,12 @@ public class CountryDropdown extends BJADComboBox<CountryBean>
    public static CountryDropdown createDropdownFromPackagedISO3166List()
    {
       List<CountryBean> countries = new LinkedList<>();
-      try (Scanner s = new Scanner(ClassLoader.getSystemResourceAsStream("Country_ISO-3166-1_tabbed.txt")) )
+      try (Scanner s = new Scanner(ClassLoader.getSystemResourceAsStream("Country_ISO-3166-1_tilda-separated.txt")) )
       {
          while (s.hasNextLine())
          {
             String line = s.nextLine();
-            StringTokenizer st = new StringTokenizer(line, "\t");
+            StringTokenizer st = new StringTokenizer(line, "~~");
                         
             String eng = null;
             String a2c = null;
@@ -301,7 +356,7 @@ public class CountryDropdown extends BJADComboBox<CountryBean>
             {
                num = st.nextToken();
             }
-            
+                        
             if (num != null)
             {
                CountryBean bean = new CountryBean();

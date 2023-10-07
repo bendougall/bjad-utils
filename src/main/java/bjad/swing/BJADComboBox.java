@@ -383,6 +383,20 @@ public class BJADComboBox<T> extends JComboBox<T>
    }
    
    /**
+    * Resets the ComboBox to a blank slate, setting the text
+    * to blank (if editable), and setting the selection to 
+    * no selection.
+    */
+   public void resetValue()
+   {
+      if (isEditable())
+      {
+         this.setText("");
+      }
+      this.setSelectedIndex(-1);
+   }
+   
+   /**
     * Creates the default editor for the combobox with the default
     * max length of 500.
     */

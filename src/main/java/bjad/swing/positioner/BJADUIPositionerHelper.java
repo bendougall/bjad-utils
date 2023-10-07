@@ -551,24 +551,32 @@ class ControlTableModel extends AbstractTableModel
    @Override 
    public String getColumnName(int column)
    {
+      String val = "";
       switch (column)
       {
       case 0: 
-         return "  ";
+         val = "  ";
+         break;
       case 1:
-         return "Type";
+         val = "Type";
+         break;
       case 2:
-         return "Name/Text ";
+         val = "Name/Text ";
+         break;
       case 3:
-         return "X";
+         val = "X";
+         break;
       case 4: 
-         return "Y";
+         val = "Y";
+         break;
       case 5:
-         return "Width ";
+         val = "Width ";
+         break;
       case 6:
-         return "Height ";
+         val = "Height ";
+         break;
       }
-      return "";
+      return val;
    }
    
    /**
@@ -583,18 +591,18 @@ class ControlTableModel extends AbstractTableModel
    @Override 
    public Class<?> getColumnClass(int column)
    {
+      Class<?> ret = Integer.class;
+      
       if (column == 0)
       {
-         return Boolean.class;
+         ret = Boolean.class;
       }
       else if (column == 1 || column == 2)
       {
-         return String.class;
+         ret = String.class;
       }
-      else
-      {
-         return Integer.class;
-      }
+      
+      return ret;
    }
    
    /**
@@ -624,24 +632,32 @@ class ControlTableModel extends AbstractTableModel
    public Object getValueAt(int rowIndex, int columnIndex)
    {
       ComponentWrapper cw = components[rowIndex];
+      Object val = "";
       switch (columnIndex)
       {
       case 0: 
-         return cw.isSelected();
+         val = cw.isSelected();
+         break;
       case 1:
-         return cw.getComponent().getClass().getSimpleName();
+         val =  cw.getComponent().getClass().getSimpleName();
+         break;
       case 2:
-         return cw.getNameOrText();
+         val =  cw.getNameOrText();
+         break;
       case 3:
-         return cw.getComponent().getBounds().x;
+         val =  cw.getComponent().getBounds().x;
+         break;
       case 4: 
-         return cw.getComponent().getBounds().y;
+         val =  cw.getComponent().getBounds().y;
+         break;
       case 5:
-         return cw.getComponent().getBounds().width;
+         val =  cw.getComponent().getBounds().width;
+         break;
       case 6:
-         return cw.getComponent().getBounds().height;
+         val =  cw.getComponent().getBounds().height;
+         break;
       }
-      return "";
+      return val;
    }   
    
    /**
@@ -658,11 +674,7 @@ class ControlTableModel extends AbstractTableModel
    @Override
    public boolean isCellEditable(int rowIndex, int columnIndex)
    {
-      if (rowIndex < 0 && rowIndex >= components.length)
-      {
-         return false;
-      }
-      else if (columnIndex == 1 || columnIndex == 2)
+      if (columnIndex == 1 || columnIndex == 2 || (rowIndex < 0 && rowIndex >= components.length))
       {
          return false;
       }
