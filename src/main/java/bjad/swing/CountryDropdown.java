@@ -285,8 +285,14 @@ public class CountryDropdown extends BJADComboBox<CountryBean>
                   }
                }
             }
+            
+            if (retVal != -1)
+            {
+               break;
+            }
          }
       }
+      System.out.println("Returning " + retVal + ":: " + getItemAt(retVal).getEnglishText());
       return retVal;
    }
    

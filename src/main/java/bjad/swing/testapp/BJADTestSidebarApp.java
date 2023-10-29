@@ -43,6 +43,7 @@ import bjad.swing.DateTimeTextField;
 import bjad.swing.NumericTextField;
 import bjad.swing.TextField;
 import bjad.swing.WrappedLabel;
+import bjad.swing.beans.ICountryDisplay;
 import bjad.swing.listing.AbstractIItemTableModel;
 import bjad.swing.listing.EnhancedListModel;
 import bjad.swing.listing.IListingItemEditor;
@@ -587,6 +588,7 @@ class DropdownDemoPanel extends AbstractBJADNavPanel implements ItemListener, Ca
          };
    
    private CountryDropdown countryDropdown = CountryDropdown.createDropdownFromPackagedISO3166List();
+   private BJADComboBox<String> formatDropdown = new BJADComboBox<String>(new String[] {"Name", "Two Character Code", "Three Character Code", "Name and Code"});
    private NumericTextField tempField = NumericTextField.newDecimalFieldNoLimits();
    private NumericTextField resultField = NumericTextField.newDecimalFieldNoLimits();
    private BJADComboBox<String> fromDropdown = new BJADComboBox<>(UNITS);
@@ -607,6 +609,13 @@ class DropdownDemoPanel extends AbstractBJADNavPanel implements ItemListener, Ca
       lbl.setPreferredSize(new Dimension(150, 35));
       pane.add(lbl, BorderLayout.WEST);
       pane.add(countryDropdown, BorderLayout.CENTER);
+      content.add(pane);
+      
+      pane = new JPanel(new BorderLayout(5,5));
+      lbl = new JLabel("Country Format");
+      lbl.setPreferredSize(new Dimension(150, 35));
+      pane.add(lbl, BorderLayout.WEST);
+      pane.add(formatDropdown, BorderLayout.CENTER);
       content.add(pane);
       
       pane = new JPanel(new BorderLayout(5,5));
@@ -651,6 +660,9 @@ class DropdownDemoPanel extends AbstractBJADNavPanel implements ItemListener, Ca
       countryDropdown.setSelectedIndex(-1);
       countryDropdown.setPlaceholderText("Select a country");
       
+      formatDropdown.setSelectedIndex(0);
+      formatDropdown.addItemListener(this);
+      
       this.add(content, BorderLayout.NORTH);
       this.add(new JLabel(""), BorderLayout.CENTER);
       
@@ -673,7 +685,8 @@ class DropdownDemoPanel extends AbstractBJADNavPanel implements ItemListener, Ca
    @Override
    public void onPanelDisplay()
    {
-            
+      countryDropdown.setSelectedCountryByText("CA");
+      System.out.println(countryDropdown.getSelectedIndex());
    }
    @Override
    public boolean canPanelClose()
@@ -700,7 +713,28 @@ class DropdownDemoPanel extends AbstractBJADNavPanel implements ItemListener, Ca
    @Override
    public void itemStateChanged(ItemEvent e)
    {
-      doConversion();
+      if (e.getSource().equals(formatDropdown))
+      {
+         switch (formatDropdown.getSelectedIndex())
+         {
+         case 0: 
+            countryDropdown.setDisplayFormatter(ICountryDisplay.createEnglishDisplaySafeImpl());
+            break;
+         case 1:
+            countryDropdown.setDisplayFormatter(ICountryDisplay.createAlpha2DisplayImpl());
+            break;
+         case 2:
+            countryDropdown.setDisplayFormatter(ICountryDisplay.createAlpha3DisplayImpl());
+            break;
+         case 3:
+            countryDropdown.setDisplayFormatter(bean -> String.format("%s (%s)", bean.getEnglishText(), bean.getAlpha2Code()));
+            break;
+         }
+      }
+      else
+      {
+         doConversion();
+      }
    }
    
    private void doConversion()

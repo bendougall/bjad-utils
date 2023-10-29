@@ -56,10 +56,7 @@ public class CountryComboBoxModel extends EnhancedComboBoxModel<CountryBean>
    public CountryComboBoxModel(CountryBean[] countries, ICountryDisplay displayInterface) throws IllegalArgumentException
    {
       this.setDisplayInterface(displayInterface);
-      for (CountryBean country : countries)
-      {
-         this.addElement(country);
-      }
+      this.add(countries);
    }
    
    /**
@@ -82,6 +79,21 @@ public class CountryComboBoxModel extends EnhancedComboBoxModel<CountryBean>
       this.add(countries);
    }
 
+   /**
+    * Adds the country element to the combo box model after ensuring
+    * it's display formatter is set to the model's display formatter. 
+    * 
+    * @param country
+    *    The country element to add to the combo box model after 
+    *    ensuring the display formatter is set to match the one
+    *    set within the model.
+    */
+   public void addElement(CountryBean country)
+   {
+      country.setDisplayFormatter(this.getDisplayInterface());
+      super.addElement(country);
+   }
+   
    /**
     * Returns the value of the CountryListModel instance's 
     * displayInterface property.
