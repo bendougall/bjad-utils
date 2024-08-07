@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.Collection;
@@ -27,11 +26,12 @@ import javax.swing.plaf.basic.BasicComboBoxEditor;
  * @param <T> 
  *   The type of object to show within the combobox
  */
-public class BJADComboBox<T> extends JComboBox<T> 
+public class BJADComboBox<T> extends JComboBox<T> implements FocusListener
 {
    private static final long serialVersionUID = 2257674315285171013L;
    private RestrictiveComboBoxEditor editor = null;
    private boolean selectionEnforced = false;
+   private AutoCompleteMode autoCompleteMode = AutoCompleteMode.DO_NOTHING;
    
    /**
     * Default Constructor
@@ -291,7 +291,7 @@ public class BJADComboBox<T> extends JComboBox<T>
     */
    public String getText()
    {
-      String text = editor.editor.getText();
+      String text = (editor != null && editor.editor != null) ? editor.editor.getText(): "";
       // Selection not enforced, return the text right away
       if (!this.selectionEnforced)
       {
@@ -397,6 +397,52 @@ public class BJADComboBox<T> extends JComboBox<T>
    }
    
    /**
+    * Auto completes the text in the combobox if the autocomplete
+    * mode states to do so. 
+    * 
+    * @param mode
+    *    The way the auto complete operation will execute.
+    */
+   public void autoCompleteComboboxEntry(AutoCompleteMode mode)
+   {
+      // Do not do autocomplete logic if the combobox cannot be 
+      // edited or if the mode is DO_NOTHING.
+      if (!isEditable() && mode == AutoCompleteMode.DO_NOTHING)
+      {
+         return;
+      }
+      
+      String text = getText();
+      boolean found = false;
+      if (text != null && !text.trim().isEmpty())
+      {
+         text = text.trim().toUpperCase();
+         for (int index = 0; index != this.getItemCount(); ++index)
+         {
+            String itemText = getItemAt(index).toString();
+            if (itemText != null && !itemText.trim().isEmpty())
+            {
+               if (itemText.toUpperCase().startsWith(text))
+               {
+                  setText(itemText);
+                  setSelectedIndex(index);
+                  found = true;
+                  break;
+               }
+            }
+         }
+      }
+      
+      // No match found, and the selection is enforced or 
+      // the auto complete mode is CLEAR ON unknown, wipe
+      // the selection and text from the combobox.
+      if (!found && (selectionEnforced || mode == AutoCompleteMode.FILL_BUT_CLEAR_UNKNOWN_TEXT))
+      {
+         resetValue();
+      }
+   }
+   
+   /**
     * Creates the default editor for the combobox with the default
     * max length of 500.
     */
@@ -405,32 +451,87 @@ public class BJADComboBox<T> extends JComboBox<T>
       // Make sure no items are selected by default. Developer using 
       // the dropdown can add a default selection if they wish.
       setSelectedIndex(-1);
-      
+            
+      // Create the editor so that the character restrictions and 
+      // what not can be applied within the combobox itself. 
+      editor = new RestrictiveComboBoxEditor();
+      editor.editor.setMaxLength(500);
+      setEditor(editor);
+
       // add the focus listener as we make the editor so we can 
       // reset bad selections to blank if selection is enforced and 
       // the focus is lost when a non-matching selection is in the 
       // text field. 
-      addFocusListener(new FocusAdapter() {
-         @Override
-         public void focusLost(FocusEvent e)
-         {
-            if (selectionEnforced)
-            {
-               if (getText().isEmpty())
-               {
-                  setText("");
-                  setSelectedIndex(-1);
-               }
-            }
-         }
-      });
-      
-      editor = new RestrictiveComboBoxEditor();
-      editor.editor.setMaxLength(500);
-      setEditor(editor);
+      editor.editor.addFocusListener(this);
    }
    
+   /**
+    * Returns the auto-completion mode for the combobox
+    * @return
+    *    The auto complete mode in use for the dropdown.
+    */
+   public AutoCompleteMode getAutoCompleteMode()
+   {
+      return this.autoCompleteMode;
+   }
    
+   /**
+    * Sets the auto-completion mode for the dropdown.
+    * @param mode
+    *    The mode the dropdown will use for auto-completion.
+    */
+   public void setAutoCompleteMode(AutoCompleteMode mode)
+   {
+      this.autoCompleteMode = mode;
+   }
+
+   @Override
+   public void focusGained(FocusEvent e)
+   {
+      ; // Do nothing. 
+   }
+
+   @Override
+   public void focusLost(FocusEvent e)
+   {
+      // Make sure that the selection is set properly 
+      // when the editor in the combobox has lost focus.
+      autoCompleteComboboxEntry(autoCompleteMode);
+   }
+
+   @Override
+   public T getSelectedItem()
+   {
+      // Make sure the selection is set properly 
+      // when the selected item is requested from
+      // the dropdown
+      autoCompleteComboboxEntry(this.getAutoCompleteMode());
+      
+      int selectedIndex = getSelectedIndex();
+      return selectedIndex != -1 ? this.getItemAt(selectedIndex) : null;
+   }
+
+   @Override
+   public Object[] getSelectedObjects()
+   {
+      // Get the selected item from the dropdown, 
+      // triggering auto-complete logic along 
+      // the way if needed. 
+      T item = getSelectedItem();
+      
+      // No item selected, return whatever the base
+      // combobox class would return. 
+      if (item == null)
+      {
+         return super.getSelectedObjects();
+      }
+      // Item selected, return an object array with
+      // that item as its element. 
+      else
+      {
+         return new Object[] { item };
+      }
+   }
 }
 
 class RestrictiveComboBoxEditor implements ComboBoxEditor, FocusListener

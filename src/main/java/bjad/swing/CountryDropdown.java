@@ -292,7 +292,6 @@ public class CountryDropdown extends BJADComboBox<CountryBean>
             }
          }
       }
-      System.out.println("Returning " + retVal + ":: " + getItemAt(retVal).getEnglishText());
       return retVal;
    }
    
@@ -322,9 +321,9 @@ public class CountryDropdown extends BJADComboBox<CountryBean>
     */
    @Override
    @Deprecated
-   public Object getSelectedItem()
+   public CountryBean getSelectedItem()
    {
-      return super.getSelectedItem();
+      return getSelectedCountry();
    }
    
    /**

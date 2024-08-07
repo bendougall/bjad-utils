@@ -36,6 +36,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 
+import bjad.swing.AutoCompleteMode;
 import bjad.swing.BJADComboBox;
 import bjad.swing.CountryDropdown;
 import bjad.swing.DateEntryField;
@@ -602,6 +603,8 @@ class DropdownDemoPanel extends AbstractBJADNavPanel implements ItemListener, Ca
       super();
       setLayout(new BorderLayout());
       
+      countryDropdown.setAutoCompleteMode(AutoCompleteMode.FILL_BUT_CLEAR_UNKNOWN_TEXT);
+      
       JPanel content = new JPanel(true);
       content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
       JPanel pane = new JPanel(new BorderLayout(5,5));
@@ -686,7 +689,6 @@ class DropdownDemoPanel extends AbstractBJADNavPanel implements ItemListener, Ca
    public void onPanelDisplay()
    {
       countryDropdown.setSelectedCountryByText("CA");
-      System.out.println(countryDropdown.getSelectedIndex());
    }
    @Override
    public boolean canPanelClose()
