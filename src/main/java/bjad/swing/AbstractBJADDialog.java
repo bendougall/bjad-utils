@@ -19,7 +19,7 @@ import bjad.swing.nav.BJADTitlePanel;
  * @author 
  *   Ben Dougall
  */
-public abstract class BJADDialog extends JDialog
+public abstract class AbstractBJADDialog extends JDialog
 {
    private static final long serialVersionUID = -1915685829454831514L;
 
@@ -73,7 +73,7 @@ public abstract class BJADDialog extends JDialog
     * @param titleText
     *    The title of the dialog.
     */
-   public BJADDialog(String titleText)
+   public AbstractBJADDialog(String titleText)
    {
       setUndecorated(true);
       setTitle(titleText);

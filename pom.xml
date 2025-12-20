@@ -3,10 +3,13 @@
 
 	<groupId>bjad</groupId>
 	<artifactId>bjad-utils</artifactId>
-	<version>1.0.2</version>
+	<version>1.0.4</version>
 
-	<name>BJAD Web Component</name>
-	<description>Library containing a component allowing for java applications to call and download data from Rest APIs, Web Services, or even web pages.</description>
+	<name>BJAD Utilities</name>
+	<description>
+	  Library containing a number of common utilities and functions that can be
+	  used by applications.  
+	</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -15,44 +18,44 @@
 		
 		<!-- Maven Plugin Management Versions -->
 		<maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
-		<maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
-		<maven-dependency-plugin.version>3.6.0</maven-dependency-plugin.version>
-		<maven-release-plugin.version>3.0.1</maven-release-plugin.version>
+		<maven-assembly-plugin.version>3.7.1</maven-assembly-plugin.version>
+		<maven-dependency-plugin.version>3.7.1</maven-dependency-plugin.version>
+		<maven-release-plugin.version>3.1.1</maven-release-plugin.version>
 		
 		<!-- Maven Plugin Versions -->
-		<maven-checkstyle-plugin.version>3.3.0</maven-checkstyle-plugin.version>
-		<maven-clean-plugin.version>3.3.1</maven-clean-plugin.version>
-		<maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
-		<maven-deploy-plugin.version>3.1.1</maven-deploy-plugin.version> 
-		<maven-enforcer-plugin.version>3.4.1</maven-enforcer-plugin.version>
-		<maven-install-plugin.version>3.1.1</maven-install-plugin.version>
+		<maven-checkstyle-plugin.version>3.4.0</maven-checkstyle-plugin.version>
+		<maven-clean-plugin.version>3.4.0</maven-clean-plugin.version>
+		<maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
+		<maven-deploy-plugin.version>3.1.2</maven-deploy-plugin.version> 
+		<maven-enforcer-plugin.version>3.5.0</maven-enforcer-plugin.version>
+		<maven-install-plugin.version>3.1.2</maven-install-plugin.version>
 		<!-- 
          Get around the Eclipse Unknown Maven Configuration Error
          by defining this property.
       
          Source: https://stackoverflow.com/questions/56212981/eclipse-showing-maven-configuration-problem-unknown 
       -->
-		<maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>		
-		<maven-javadoc-plugin.version>3.6.0</maven-javadoc-plugin.version>
-		<maven-jxr-plugin.version>3.3.0</maven-jxr-plugin.version>
-		<maven-project-info-reports-plugin.version>3.4.5</maven-project-info-reports-plugin.version>
+		<maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>		
+		<maven-javadoc-plugin.version>3.8.0</maven-javadoc-plugin.version>
+		<maven-jxr-plugin.version>3.4.0</maven-jxr-plugin.version>
+		<maven-project-info-reports-plugin.version>3.6.2</maven-project-info-reports-plugin.version>
 		<maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>		
-		<maven-site-plugin.version>4.0.0-M10</maven-site-plugin.version>
-		<maven-source-plugin.version>3.3.0</maven-source-plugin.version>
-		<maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
-		<maven-surefire-report-plugin.version>3.1.2</maven-surefire-report-plugin.version>
+		<maven-site-plugin.version>4.0.0-M16</maven-site-plugin.version>
+		<maven-source-plugin.version>3.3.1</maven-source-plugin.version>
+		<maven-surefire-plugin.version>3.3.1</maven-surefire-plugin.version>
+		<maven-surefire-report-plugin.version>3.3.1</maven-surefire-report-plugin.version>
 		
 		<!-- Other plugin version -->
-		<jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
-		<taglist-maven-plugin.version>3.0.0</taglist-maven-plugin.version>
-		<versions-maven-plugin.version>2.16.1</versions-maven-plugin.version>
+		<jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
+		<taglist-maven-plugin.version>3.1.0</taglist-maven-plugin.version>
+		<versions-maven-plugin.version>2.17.1</versions-maven-plugin.version>
 		
 		<!-- Dependency Versions -->
 		<commons-codec.version>1.15</commons-codec.version>
 		<commons-logging.version>1.2</commons-logging.version>
-		<hamcrest-library.version>2.2</hamcrest-library.version>
-		<junit.version>5.10.0</junit.version>
-		<sqlite-jdbc.version>3.43.0.0</sqlite-jdbc.version>
+		<hamcrest-library.version>3.0</hamcrest-library.version>
+		<junit.version>5.10.3</junit.version>
+		<sqlite-jdbc.version>3.46.0.1</sqlite-jdbc.version>
 	</properties>
 	
 	<dependencies>
