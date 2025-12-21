@@ -1,4 +1,4 @@
-package bjad.processor.cboamount;
+package bjad.processor.combinationfinder;
 
 import java.util.ArrayList;
 import java.util.List;

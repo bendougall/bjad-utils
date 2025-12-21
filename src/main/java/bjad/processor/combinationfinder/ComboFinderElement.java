@@ -1,4 +1,4 @@
-package bjad.processor.cboamount;
+package bjad.processor.combinationfinder;
 
 import java.math.BigDecimal;
 
